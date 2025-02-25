@@ -1,0 +1,23 @@
+{
+  "name": "h2flow",
+  "version": "1.0.0",
+  "main": "firebase.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kaman2003/Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kaman2003/Project/issues"
+  },
+  "homepage": "https://github.com/Kaman2003/Project#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
