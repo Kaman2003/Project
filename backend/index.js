@@ -24,7 +24,7 @@ const corsOptions = {
   origin: [
     // "http://localhost:3000", 
     "http://localhost:5173",
-    "https://h2flow.netlify.app/"
+    "https://h2flow.netlify.app"
    // Fallback to common dev URLs
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -33,7 +33,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // Enable pre-flight requests
+// app.options("*", cors(corsOptions)); // Enable pre-flight requests
 
 app.use(bodyParser.json());
 
