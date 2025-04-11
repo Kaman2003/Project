@@ -1,7 +1,7 @@
 import React from "react";
 import "../../css/home.css";
 import { useNavigate } from 'react-router-dom';
-import heroimg from "../../assets/hero-img.jpg";
+// import heroimg from "../../assets/hero-img.jpg";
 
 
 
@@ -63,7 +63,7 @@ const Home = () => {
         </div>
         <div className="home-hero-image">
           <img
-            src="../src/assets/hero-img.jpg"
+            src="hero-img.jpg"
             alt="Smart Sip Water Dispenser"
             className="home-hero-image-dispenser"
           />
