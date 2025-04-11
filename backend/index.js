@@ -24,7 +24,8 @@ const corsOptions = {
   origin: [
     // "http://localhost:3000", 
     "http://localhost:5173",
-    "https://h2flow.netlify.app"
+    "https://h2flow.netlify.app",
+    "https://h2-flow.com"
    // Fallback to common dev URLs
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],

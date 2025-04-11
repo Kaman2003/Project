@@ -35,7 +35,7 @@ const sensors = [
   {
     id: 4,
     name: "Stepper Motor",
-    i2c: "0x31",
+    i2c: "NA",
     description:
       "Powers the peristaltic pump, ensuring precise and controlled liquid dispensing for efficient operation.",
     image: motorImage,

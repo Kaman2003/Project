@@ -138,7 +138,7 @@ const About = () => {
                 </p>
               </div>
               <div className="ss-about-tech-item">
-                <FontAwesomeIcon icon={faChartLine} className="ss-about-icon" />
+                {/* <FontAwesomeIcon icon={faChartLine} className="ss-about-icon" /> */}
                 <h4>Data Analytics</h4>
                 <p>
                   Our app provides real-time insights into your water

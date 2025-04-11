@@ -29,6 +29,7 @@ function Navbar() {
   const { currentUser, login, signup, logout } = useAuth();
   const navigate = useNavigate();
 
+  
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -104,6 +105,17 @@ function Navbar() {
       closeModal();
     }
   };
+
+  useEffect(() => {
+    if (location.state?.showAuthModal) {
+      openModal();
+      if (location.state?.initialTab) {
+        setActiveTab(location.state.initialTab);
+      }
+      // Clear the state to prevent the modal from reopening on refresh
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location.state]);
 
   useEffect(() => {
     if (isModalOpen) {

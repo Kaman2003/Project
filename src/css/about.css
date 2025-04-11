@@ -615,7 +615,7 @@ html {
 
 /* Staggered animation for timeline items */
 .ss-about-timeline-item {
-  opacity: 0;
+  opacity: 1;
   transform: translateY(20px);
   animation: fadeInUp 0.5s ease forwards;
 }
@@ -677,7 +677,7 @@ html {
   width: 5px;
   height: 5px;
   background: rgba(255, 255, 255, 0.5);
-  opacity: 0;
+  opacity: 1;
   border-radius: 100%;
   transform: scale(1, 1) translate(-50%);
   transform-origin: 50% 50%;
@@ -693,7 +693,7 @@ html {
     opacity: 1;
   }
   100% {
-    opacity: 0;
+    opacity: 1;
     transform: scale(40, 40);
   }
 }
@@ -817,7 +817,7 @@ html {
 .ss-about-impact-stat,
 .ss-about-team-member,
 .ss-about-initiative {
-  opacity: 0;
+  opacity: 1;
   transform: translateY(20px);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }

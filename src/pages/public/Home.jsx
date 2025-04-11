@@ -1,7 +1,22 @@
 import React from "react";
 import "../../css/home.css";
+import { useNavigate } from 'react-router-dom';
+import heroimg from "../../assets/hero-img.jpg";
+
+
+
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const handleGetStartedClick = () => {
+    navigate('/', { 
+      state: { 
+        showAuthModal: true,
+        initialTab: 'register' // This will open the registration tab
+      } 
+    });
+  };
   return (
     <div className="home-page">
       {/* HERO SECTION */}
@@ -15,19 +30,18 @@ const Home = () => {
         <div className="home-hero-content">
           <h1 className="home-hero-title">
             Welcome to{" "}
-            <span className="home-hero-title-highlight">Smart Sip</span>
+            <span className="home-hero-title-highlight">H2Flow</span>
           </h1>
           <p className="home-hero-subtitle">
             Stay Hydrated, Stay Healthy with Our Smart Water Dispensers
           </p>
           <div className="home-hero-buttons">
-            <button className="home-hero-button home-hero-button-primary">
+            <button
+              className="home-hero-button home-hero-button-primary"
+              onClick={() => (window.location.href = '/about')}
+              >
               <span className="home-hero-button-icon">💧</span>
-              Learn More
-            </button>
-            <button className="home-hero-button home-hero-button-secondary">
-              <span className="home-hero-button-icon">🚀</span>
-              Get Started
+              Learn More About us
             </button>
           </div>
           <div className="home-hero-features">
@@ -49,7 +63,7 @@ const Home = () => {
         </div>
         <div className="home-hero-image">
           <img
-            src="src/assets/hero-img.jpg"
+            src="../src/assets/hero-img.jpg"
             alt="Smart Sip Water Dispenser"
             className="home-hero-image-dispenser"
           />
@@ -122,7 +136,7 @@ const Home = () => {
                 </p>
                 <div className="home-testimonial-author">
                   <img
-                    src="src/assets/test-1.jpg" // Replace with actual user image
+                    src="/assets/test-1.jpg" // Replace with actual user image
                     alt="Jane Doe"
                     className="home-testimonial-author-image"
                   />
@@ -145,7 +159,7 @@ const Home = () => {
                 </p>
                 <div className="home-testimonial-author">
                   <img
-                    src="src/assets/test-2.jpg" // Replace with actual user image
+                    src="/assets/test-2.jpg" // Replace with actual user image
                     alt="John Smith"
                     className="home-testimonial-author-image"
                   />
@@ -166,7 +180,7 @@ const Home = () => {
                 </p>
                 <div className="home-testimonial-author">
                   <img
-                    src="src/assets/test-3.jpg" // Replace with actual user image
+                    src="/assets/test-3.jpg" // Replace with actual user image
                     alt="Emily Johnson"
                     className="home-testimonial-author-image"
                   />
@@ -249,9 +263,10 @@ const Home = () => {
             Join thousands of happy users and experience the future of
             hydration.
           </p>
-          <button className="home-cta-button">
+          <button className="home-cta-button"
+          onClick={handleGetStartedClick}>
             <span className="home-cta-button-icon">🚀</span>
-            Get Your Smart Sip Now
+            Register with us now
           </button>
           <div className="home-cta-stats">
             <div className="home-cta-stat">
