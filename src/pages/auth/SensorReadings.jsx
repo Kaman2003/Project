@@ -153,7 +153,7 @@ function SensorReadings() {
               <span className="metric-value">
                 {sensorData.distance?.distance_cm !== undefined 
                   ? `${sensorData.distance.distance_cm} cm` 
-                  : "No data"}  
+                  : "No data"}
               </span>
             </div>
             <div className="sensor-metric">

@@ -41,13 +41,13 @@ function Dashboard() {
       const airQualityUnsub = onValue(airQualityRef, (snapshot) => {
         const data = snapshot.val();
         if (data) {
-          const entries = Object.entries(data);
-          const lastEntry = entries[entries.length - 1];
-setSensorData(prev => ({
-  ...prev,
-  distance: lastEntry[1],
-  loading: false
-}));
+         const entries = Object.entries(data);
+          const lastEntry = entries[entries.length - 1]; // If data is an array, else modify as per structure.
+          setSensorData(prev => ({
+            ...prev,
+            airQuality: lastEntry[1],  // Set the full airQuality object here
+            loading: false,
+          }));
         }
       });
 
@@ -163,14 +163,13 @@ setSensorData(prev => ({
           <div className="card-header">
             <FontAwesomeIcon icon={faWind} className="card-icon" />
             <h3>Air Quality</h3>
-            <span className={`status-badge ${
-              !sensorData.airQuality?.aqi ? 'unknown' :
-              sensorData.airQuality.aqi <= 1 ? 'excellent' :
-              sensorData.airQuality.aqi <= 3 ? 'good' : 'poor'
-            }`}>
+            <span className={`status-badge ${!sensorData.airQuality?.aqi ? 'unknown' :
+                sensorData.airQuality.aqi <= 1 ? 'excellent' :
+                  sensorData.airQuality.aqi <= 3 ? 'good' : 'poor'
+              }`}>
               {!sensorData.airQuality?.aqi ? '--' :
-               sensorData.airQuality.aqi <= 1 ? 'Excellent' :
-               sensorData.airQuality.aqi <= 3 ? 'Good' : 'Poor'}
+                sensorData.airQuality.aqi <= 1 ? 'Excellent' :
+                  sensorData.airQuality.aqi <= 3 ? 'Good' : 'Poor'}
             </span>
           </div>
           <div className="card-body">
@@ -194,9 +193,8 @@ setSensorData(prev => ({
           <div className="card-header">
             <FontAwesomeIcon icon={faRulerVertical} className="card-icon" />
             <h3>Distance</h3>
-            <span className={`status-badge ${
-              sensorData.distance?.distance_cm < 50 ? 'warning' : 'normal'
-            }`}>
+            <span className={`status-badge ${sensorData.distance?.distance_cm < 50 ? 'warning' : 'normal'
+              }`}>
               {sensorData.distance?.distance_cm < 50 ? 'Close' : 'Normal'}
             </span>
           </div>
@@ -223,9 +221,8 @@ setSensorData(prev => ({
           <div className="card-header">
             <FontAwesomeIcon icon={faWater} className="card-icon" />
             <h3>Touch Sensor</h3>
-            <span className={`status-badge ${
-              sensorData.touchSlider?.is_touched ? 'active' : 'inactive'
-            }`}>
+            <span className={`status-badge ${sensorData.touchSlider?.is_touched ? 'active' : 'inactive'
+              }`}>
               {sensorData.touchSlider?.is_touched ? 'Touched' : 'Not Touched'}
             </span>
           </div>
