@@ -1,9 +1,6 @@
 import React from "react";
 import "../../css/home.css";
 import { useNavigate } from 'react-router-dom';
-// import heroimg from "../../assets/hero-img.jpg";
-
-
 
 
 const Home = () => {
@@ -38,8 +35,8 @@ const Home = () => {
           <div className="home-hero-buttons">
             <button
               className="home-hero-button home-hero-button-primary"
-              onClick={() => (window.location.href = '/about')}
-              >
+              onClick={() => navigate('/about')}
+            >
               <span className="home-hero-button-icon">💧</span>
               Learn More About us
             </button>
@@ -64,7 +61,7 @@ const Home = () => {
         <div className="home-hero-image">
           <img
             src="hero-img.jpg"
-            alt="Smart Sip Water Dispenser"
+            alt="H2Flow Water Dispenser"
             className="home-hero-image-dispenser"
           />
           <div className="home-hero-image-overlay"></div>
@@ -74,9 +71,9 @@ const Home = () => {
       {/* FEATURES */}
       <section className="home-features">
         <div className="home-features-container">
-          <h2 className="home-features-title">Why Choose Smart Sip?</h2>
+          <h2 className="home-features-title">Why Choose H2Flow?</h2>
           <p className="home-features-subtitle">
-            Discover the features that make Smart Sip the ultimate choice for
+            Discover the features that make H2Flow the ultimate choice for
             hydration.
           </p>
           <div className="home-features-grid">
@@ -123,7 +120,7 @@ const Home = () => {
         <div className="home-testimonials-container">
           <h2 className="home-testimonials-title">What Our Users Say</h2>
           <p className="home-testimonials-subtitle">
-            Hear from our community of happy users who love Smart Sip.
+            Hear from our community of happy users who love H2Flow.
           </p>
           <div className="home-testimonials-grid">
             {/* Testimonial 1 */}
@@ -131,12 +128,12 @@ const Home = () => {
               <div className="home-testimonial-card-content">
                 <div className="home-testimonial-card-icon">💧</div>
                 <p className="home-testimonial-text">
-                  "Smart Sip has completely changed the way I stay hydrated.
+                  "H2Flow has completely changed the way I stay hydrated.
                   It's convenient, eco-friendly, and stylish!"
                 </p>
                 <div className="home-testimonial-author">
                   <img
-                    src="/assets/test-1.jpg" // Replace with actual user image
+                    src="test-1.jpg" // Replace with actual user image
                     alt="Jane Doe"
                     className="home-testimonial-author-image"
                   />
@@ -159,7 +156,7 @@ const Home = () => {
                 </p>
                 <div className="home-testimonial-author">
                   <img
-                    src="/assets/test-2.jpg" // Replace with actual user image
+                    src="test-2.jpg" // Replace with actual user image
                     alt="John Smith"
                     className="home-testimonial-author-image"
                   />
@@ -180,7 +177,7 @@ const Home = () => {
                 </p>
                 <div className="home-testimonial-author">
                   <img
-                    src="/assets/test-3.jpg" // Replace with actual user image
+                    src="test-3.jpg" 
                     alt="Emily Johnson"
                     className="home-testimonial-author-image"
                   />
@@ -200,7 +197,7 @@ const Home = () => {
           <h2 className="home-how-it-works-title">How It Works</h2>
           <p className="home-how-it-works-subtitle">
             Discover the simple steps to transform your hydration experience
-            with Smart Sip.
+            with H2Flow.
           </p>
           <div className="home-how-it-works-steps">
             {/* Step 1: Set Up */}
@@ -209,7 +206,7 @@ const Home = () => {
               <div className="home-how-it-works-step-content">
                 <h3 className="home-how-it-works-step-title">Step 1: Set Up</h3>
                 <p className="home-how-it-works-step-description">
-                  Connect your Smart Sip dispenser to the app and customize your
+                  Connect your H2Flow dispenser to the app and customize your
                   preferences.
                 </p>
               </div>

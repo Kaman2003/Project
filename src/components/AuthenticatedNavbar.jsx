@@ -26,7 +26,7 @@ function AuthenticatedNavbar() {
             <div className="drop"></div>
             <div className="wave"></div>
           </div>
-          <span>Smart Sip Dashboard</span>
+          <span>H2Flow Dashboard</span>
         </Link>
         <span>
           <FontAwesomeIcon icon={faUser} /> {currentUser?.name}

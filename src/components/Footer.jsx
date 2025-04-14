@@ -32,9 +32,9 @@ function Footer() {
             <div className="footer-drop"></div>
             <div className="footer-wave"></div>
           </div>
-          <h2>Smart Sip</h2>
+          <h2>H2Flow</h2>
           <p>
-            Smart Sip is your ultimate solution for smart water dispensers. Stay
+            H2Flow is your ultimate solution for smart water dispensers. Stay
             hydrated, stay healthy.
           </p>
         </div>
@@ -67,15 +67,15 @@ function Footer() {
           <ul>
             <li>
               <FontAwesomeIcon icon={faEnvelope} />{" "}
-              <a href="mailto:info@smartsip.com">info@smartsip.com</a>
+              <a href="mailto:info@h2flow.com">info@h2flow.com</a>
             </li>
             <li>
               <FontAwesomeIcon icon={faEnvelope} />{" "}
-              <a href="mailto:support@smartsip.com">support@smartsip.com</a>
+              <a href="mailto:support@h2flow.com">support@h2flow.com</a>
             </li>
             <li>
               <FontAwesomeIcon icon={faEnvelope} />{" "}
-              <a href="mailto:sales@smartsip.com">sales@smartsip.com</a>
+              <a href="mailto:sales@h2flow.com">sales@h2flow.com</a>
             </li>
           </ul>
         </div>
@@ -85,35 +85,35 @@ function Footer() {
           <h3>Follow Us</h3>
           <div className="footer-social-icons">
             <a
-              href="https://facebook.com/smartsip"
+              href="https://facebook.com/h2flow"
               target="_blank"
               rel="noopener noreferrer"
             >
               <FontAwesomeIcon icon={faFacebook} />
             </a>
             <a
-              href="https://twitter.com/smartsip"
+              href="https://twitter.com/h2flow"
               target="_blank"
               rel="noopener noreferrer"
             >
               <FontAwesomeIcon icon={faTwitter} />
             </a>
             <a
-              href="https://instagram.com/smartsip"
+              href="https://instagram.com/h2flow"
               target="_blank"
               rel="noopener noreferrer"
             >
               <FontAwesomeIcon icon={faInstagram} />
             </a>
             <a
-              href="https://linkedin.com/company/smartsip"
+              href="https://linkedin.com/company/h2flow"
               target="_blank"
               rel="noopener noreferrer"
             >
               <FontAwesomeIcon icon={faLinkedin} />
             </a>
             <a
-              href="https://github.com/smartsip"
+              href="https://github.com/h2flow"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -134,7 +134,7 @@ function Footer() {
 
       {/* Footer Bottom */}
       <div className="footer-bottom">
-        <p>&copy; 2025 Smart Sip. All rights reserved.</p>
+        <p>&copy; 2025 H2Flow. All rights reserved.</p>
         <p>
           <a href="/privacy-policy">Privacy Policy</a> |{" "}
           <a href="/terms-of-service">Terms of Service</a>

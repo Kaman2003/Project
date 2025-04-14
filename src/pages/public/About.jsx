@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faWater,
@@ -18,7 +19,7 @@ import "../../css/about.css";
 
 const About = () => {
   const [activeTab, setActiveTab] = useState("mission");
-
+  const navigate = useNavigate();
   const renderTabContent = () => {
     switch (activeTab) {
       case "mission":
@@ -26,7 +27,7 @@ const About = () => {
           <div className="ss-about-tab-content ss-about-mission">
             <h3 className="ss-about-tab-title">Our Mission</h3>
             <p className="ss-about-tab-text">
-              At Smart Sip, we're on a mission to revolutionize the way people
+              At H2Flow, we're on a mission to revolutionize the way people
               consume water. We believe that access to clean, safe drinking
               water is a fundamental right, and we're committed to making this a
               reality for everyone through innovative technology and sustainable
@@ -66,43 +67,40 @@ const About = () => {
             <h3 className="ss-about-tab-title">Our Story</h3>
             <div className="ss-about-timeline">
               <div className="ss-about-timeline-item">
-                <div className="ss-about-timeline-date">2018</div>
+                <div className="ss-about-timeline-date">Jan 2025</div>
                 <h4>The Idea is Born</h4>
                 <p>
                   Our founders, concerned about global water quality, envisioned
-                  a smart solution for clean water access.
+                  a smart solution for water access.
                 </p>
               </div>
               <div className="ss-about-timeline-item">
-                <div className="ss-about-timeline-date">2019</div>
+                <div className="ss-about-timeline-date">Jan 2025</div>
                 <h4>Research & Development</h4>
                 <p>
                   We assembled a team of engineers and water experts to develop
-                  our revolutionary filtration technology.
+                  our revolutionary water technology.
                 </p>
               </div>
               <div className="ss-about-timeline-item">
-                <div className="ss-about-timeline-date">2020</div>
-                <h4>Prototype Launch</h4>
+                <div className="ss-about-timeline-date">Feb 2025</div>
+                <h4>Prototype </h4>
                 <p>
-                  The first Smart Sip prototype was unveiled, garnering
-                  attention from environmentalists and tech enthusiasts.
+                  The first H2Flow prototype was made, in the environmentalists and tech enthusiasts.
                 </p>
               </div>
               <div className="ss-about-timeline-item">
-                <div className="ss-about-timeline-date">2021</div>
-                <h4>Global Expansion</h4>
+                <div className="ss-about-timeline-date">Mar 2025</div>
+                <h4>Collected the review</h4>
                 <p>
-                  Smart Sip began rolling out to households and offices across
-                  North America and Europe.
+                  Our team connect to the user in order to inprove the product.
                 </p>
               </div>
               <div className="ss-about-timeline-item">
-                <div className="ss-about-timeline-date">2022</div>
-                <h4>Smart Sip 2.0</h4>
+                <div className="ss-about-timeline-date">April 2025</div>
+                <h4>H2Flow Launched.</h4>
                 <p>
-                  We launched our second-generation device with enhanced AI
-                  capabilities and improved filtration.
+                  We launched our device with enhanced capabilities.
                 </p>
               </div>
               <div className="ss-about-timeline-item">
@@ -110,7 +108,7 @@ const About = () => {
                 <h4>Continuing Innovation</h4>
                 <p>
                   We're constantly improving our technology and expanding our
-                  reach to make clean water accessible globally.
+                  reach to make water accessible globally.
                 </p>
               </div>
             </div>
@@ -123,18 +121,17 @@ const About = () => {
             <div className="ss-about-tech-showcase">
               <div className="ss-about-tech-item">
                 <FontAwesomeIcon icon={faFlask} className="ss-about-icon" />
-                <h4>Advanced Filtration</h4>
+                <h4>Advanced Dispansing</h4>
                 <p>
-                  Our multi-stage filtration system removes 99.9999% of
-                  contaminants, including bacteria, viruses, and heavy metals.
+                  Our multi-stage Dispansing system.
                 </p>
               </div>
               <div className="ss-about-tech-item">
                 <FontAwesomeIcon icon={faCog} className="ss-about-icon" />
                 <h4>Smart Monitoring</h4>
                 <p>
-                  AI-powered sensors continuously monitor water quality, flow
-                  rate, and filter life.
+                  AI-powered sensors continuously monitor flow
+                  rate.
                 </p>
               </div>
               <div className="ss-about-tech-item">
@@ -146,33 +143,25 @@ const About = () => {
                 </p>
               </div>
             </div>
-            <div className="ss-about-tech-patents">
-              <h4>Our Patents</h4>
-              <ul>
-                <li>NanoFiltration™ Technology (Patent #US12345678)</li>
-                <li>SmartFlow™ Monitoring System (Patent #US87654321)</li>
-                <li>EcoRefill™ Cartridge Design (Patent Pending)</li>
-              </ul>
-            </div>
           </div>
         );
       case "impact":
         return (
           <div className="ss-about-tab-content ss-about-impact">
-            <h3 className="ss-about-tab-title">Our Impact</h3>
+            <h3 className="ss-about-tab-title">Our Future Impact</h3>
             <div className="ss-about-impact-stats">
               <div className="ss-about-impact-stat">
                 <span className="ss-about-impact-number">1M+</span>
-                <span className="ss-about-impact-label">Households Served</span>
+                <span className="ss-about-impact-label">Households will be Served</span>
               </div>
               <div className="ss-about-impact-stat">
                 <span className="ss-about-impact-number">500M+</span>
-                <span className="ss-about-impact-label">Gallons Purified</span>
+                <span className="ss-about-impact-label">Gallons Purified water will be the ultimate goal.</span>
               </div>
               <div className="ss-about-impact-stat">
                 <span className="ss-about-impact-number">10M+</span>
                 <span className="ss-about-impact-label">
-                  Plastic Bottles Saved
+                  Plastic Bottles will be Saved
                 </span>
               </div>
             </div>
@@ -180,7 +169,7 @@ const About = () => {
               <h4>What Our Users Say</h4>
               <div className="ss-about-testimonial">
                 <p>
-                  "Smart Sip has transformed the way my family drinks water. We
+                  "H2Flow has transformed the way my family drinks water. We
                   feel safer and healthier, and we're doing our part for the
                   environment!"
                 </p>
@@ -204,38 +193,38 @@ const About = () => {
             <div className="ss-about-team-grid">
               <div className="ss-about-team-member">
                 <img
-                  src="/path-to-image/john-doe.jpg"
+                  src="john.jpg"
                   alt="John Doe"
                   className="ss-about-team-photo"
                 />
-                <h4>John Doe</h4>
+                <h4>Kamandeep Singh</h4>
                 <p>Co-Founder & CEO</p>
               </div>
               <div className="ss-about-team-member">
                 <img
-                  src="/path-to-image/jane-smith.jpg"
+                  src="jane.jpg"
                   alt="Jane Smith"
                   className="ss-about-team-photo"
                 />
-                <h4>Jane Smith</h4>
+                <h4>Nawaz Sharief</h4>
                 <p>Co-Founder & CTO</p>
               </div>
               <div className="ss-about-team-member">
                 <img
-                  src="/path-to-image/alex-johnson.jpg"
+                  src="alex.jpg"
                   alt="Alex Johnson"
                   className="ss-about-team-photo"
                 />
-                <h4>Alex Johnson</h4>
+                <h4>clarence Oriola</h4>
                 <p>Head of Product Design</p>
               </div>
               <div className="ss-about-team-member">
                 <img
-                  src="/path-to-image/emily-brown.jpg"
+                  src="emily.jpg"
                   alt="Emily Brown"
                   className="ss-about-team-photo"
                 />
-                <h4>Emily Brown</h4>
+                <h4>Ikeena</h4>
                 <p>Chief Water Scientist</p>
               </div>
             </div>
@@ -362,18 +351,12 @@ const About = () => {
           sustainable planet.
         </p>
         <div className="ss-about-cta-buttons">
-          <a
-            href="/products"
+        <button
+            onClick={() => navigate('/product')}
             className="ss-about-cta-btn ss-about-cta-btn-primary"
           >
             Explore Our Products
-          </a>
-          <a
-            href="/contact"
-            className="ss-about-cta-btn ss-about-cta-btn-secondary"
-          >
-            Contact Us
-          </a>
+          </button>
         </div>
       </section>
 
@@ -416,7 +399,7 @@ const About = () => {
           </a>
         </div>
         <p className="ss-about-footer-copyright">
-          &copy; 2023 Smart Sip. All rights reserved.
+          &copy; 2025 H2Flow. All rights reserved.
         </p>
       </footer>
     </div>

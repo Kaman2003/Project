@@ -151,7 +151,7 @@ function Navbar() {
             <div className="drop"></div>
             <div className="wave"></div>
           </div>
-          <span>Smart Sip</span>
+          <span>H2Flow</span>
         </Link>
         <div className={`navbar-menu ${isMenuOpen ? "active" : ""}`}>
           <button className="navbar-toggle-close" onClick={toggleMenu}>
