@@ -14,13 +14,11 @@ const OpenAQDataSection = () => {
   const [userInput, setUserInput] = useState("");
 
   // Fetch OpenAQ Air and Water Quality Data
-  const fetchOpenaqData = async (location) => {
+  const fetchOpenaqData = async (location) => { 
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(
-        `https://api.openaq.org/v2/latest?city=${location}&limit=10&page=1&offset=0&sort=desc&radius=1000&order_by=lastUpdated&dumpRaw=false`
-      );
+      const response = await fetch(`http://localhost:5000/api/openaq/latest?lat=40.7128&lon=-74.0060&limit=10`);
       if (!response.ok) {
         throw new Error("Failed to fetch OpenAQ data");
       }

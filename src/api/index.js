@@ -1,5 +1,6 @@
 const API_URL = "http://localhost:5000/api/auth"
 
+
 const fetchWithAuth = async (url, options = {}) => {
   const response = await fetch(url, {
     ...options,
@@ -55,3 +56,5 @@ export const getCurrentUser = async (token) => {
     throw error;
   }
 };
+
+// const response = await fetch("http://localhost:3000/api/openaq?city=New%20York&limit=10");

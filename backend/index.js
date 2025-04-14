@@ -65,6 +65,28 @@ app.get('/api/test-firebase', async (req, res) => {
   }
 });
 
+app.get('/api/openaq/latest', async (req, res) => {
+  try {
+    const { lat, lon, limit = 10 } = req.query;
+
+    if (!lat || !lon) {
+      return res.status(400).json({ error: 'Missing lat/lon in query' });
+    }
+
+    const apiUrl = `https://api.openaq.org/v2/latest?coordinates=${lat},${lon}&radius=10000&limit=${limit}`;
+    console.log("Fetching OpenAQ URL:", apiUrl);
+
+    const response = await axios.get(apiUrl);
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error fetching OpenAQ latest data:", error.response?.data || error.message);
+    res.status(500).json({ error: "Failed to fetch latest data from OpenAQ" });
+  }
+});
+
+
+
+
 // Import routes
 import authRoutes from "./routes/auth.js";
 app.use("/api/auth", authRoutes);

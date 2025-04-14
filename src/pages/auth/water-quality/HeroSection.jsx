@@ -26,7 +26,7 @@ const HeroSection = () => {
           </button>
         </div>
         <div className="hero-image">
-          <img src="./src/assets/water-hero.jpg" alt="Clean Water" />
+          <img src="water-hero.jpg" alt="Clean Water" />
         </div>
       </div>
       {isExpanded && (

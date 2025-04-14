@@ -345,7 +345,7 @@ const About = () => {
       <main className="ss-about-main">{renderTabContent()}</main>
 
       <section className="ss-about-cta">
-        <h2 className="ss-about-cta-title">Join the Smart Sip Revolution</h2>
+        <h2 className="ss-about-cta-title">Join the H2Flow Revolution</h2>
         <p className="ss-about-cta-text">
           Experience the future of water purification and contribute to a
           sustainable planet.
