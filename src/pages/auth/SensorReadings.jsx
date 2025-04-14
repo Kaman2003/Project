@@ -20,7 +20,7 @@ function SensorReadings() {
       // Reference to your sensors data
       const airQualityRef = ref(database, 'CENG355/sensors/air_quality_sensor');
       const distanceRef = ref(database, 'CENG355/sensors/distance_sensor');
-      const touchSliderRef = ref(database, 'CENG355/sensors/touch_slider');
+      const touchSliderRef = ref(database, 'CENG355/sensors/touch_sensor');
 
       // Listen for changes in air quality data
       const airQualityUnsub = onValue(airQualityRef, (snapshot) => {
