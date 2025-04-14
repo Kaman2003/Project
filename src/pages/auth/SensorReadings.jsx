@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWater, faRulerVertical, faWind } from "@fortawesome/free-solid-svg-icons";
 import { ref, onValue } from "firebase/database";
-import "../../css/sensorreading.css"
-import {app ,database } from "../../firebase/config";
-
+import "../../css/sensorreading.css";
+import { app, database } from "../../firebase/config";
 
 function SensorReadings() {
   const [sensorData, setSensorData] = useState({
@@ -20,7 +19,7 @@ function SensorReadings() {
       // Reference to your sensors data
       const airQualityRef = ref(database, 'CENG355/sensors/air_quality_sensor');
       const distanceRef = ref(database, 'CENG355/sensors/distance_sensor');
-      const touchSliderRef = ref(database, 'CENG355/sensors/touch_sensor');
+      const touchSliderRef = ref(database, 'CENG355/sensors/touch_slider');
 
       // Listen for changes in air quality data
       const airQualityUnsub = onValue(airQualityRef, (snapshot) => {
@@ -98,8 +97,7 @@ function SensorReadings() {
   // Determine touch sensor status
   const getTouchStatus = (touchData) => {
     if (!touchData) return "No data";
-    const activePads = [touchData.pad1, touchData.pad2, touchData.pad3].filter(Boolean).length;
-    return `${activePads} pad${activePads !== 1 ? 's' : ''} active`;
+    return touchData.is_touched ? "Touched" : "Not touched";
   };
 
   if (sensorData.loading) {
@@ -112,43 +110,38 @@ function SensorReadings() {
 
   return (
     <div className="sensor-readings-page">
-      <h1 className="sensor-readings-title">Real-time Sensor Readings</h1>
-      <div className="sensor-readings-container">
-        {/* Touch Sensor CAP Card */}
-        <div className="sensor-card sensor-card-cap">
-          <div className="sensor-card-header">
-            <FontAwesomeIcon icon={faWater} className="sensor-icon" />
-            <h2 className="sensor-card-title">Touch Sensor CAP</h2>
+    <h1 className="sensor-readings-title">Real-time Sensor Readings</h1>
+    <div className="sensor-readings-container">
+      {/* Touch Sensor CAP Card */}
+      <div className="sensor-card sensor-card-cap">
+        <div className="sensor-card-header">
+          <FontAwesomeIcon icon={faWater} className="sensor-icon" />
+          <h2 className="sensor-card-title">Touch Sensor CAP</h2>
+        </div>
+        <div className="sensor-card-body">
+          <div className="sensor-metric">
+            <span className="metric-label">Current Reading:</span>
+            <span className="metric-value">
+              {getTouchStatus(sensorData.touchSlider)}
+            </span>
           </div>
-          <div className="sensor-card-body">
-            <div className="sensor-metric">
-              <span className="metric-label">Current Reading:</span>
-              <span className="metric-value">
-                {getTouchStatus(sensorData.touchSlider)}
-              </span>
-            </div>
-            <div className="sensor-metric">
-              <span className="metric-label">Status:</span>
-              <span className={`metric-status ${
-                sensorData.touchSlider?.pad1 || 
-                sensorData.touchSlider?.pad2 || 
-                sensorData.touchSlider?.pad3 ? "active" : "inactive"
-              }`}>
-                {sensorData.touchSlider?.pad1 || 
-                 sensorData.touchSlider?.pad2 || 
-                 sensorData.touchSlider?.pad3 ? "Active" : "Inactive"}
-              </span>
-            </div>
-            <div className="sensor-metric">
-              <span className="metric-label">Last Updated:</span>
-              <span className="metric-time">
-                {formatTimeAgo(sensorData.touchSlider?.timestamp)}
-              </span>
-            </div>
+          <div className="sensor-metric">
+            <span className="metric-label">Status:</span>
+            <span className={`metric-status ${
+              sensorData.touchSlider?.is_touched ? "active" : "inactive"
+            }`}>
+              {sensorData.touchSlider?.is_touched ? "Active" : "Inactive"}
+            </span>
+          </div>
+          <div className="sensor-metric">
+            <span className="metric-label">Last Updated:</span>
+            <span className="metric-time">
+              {formatTimeAgo(sensorData.touchSlider?.timestamp)}
+            </span>
           </div>
         </div>
-
-        {/* ToF Sensor Card */}
+      </div>
+        {/* Distance Sensor Card */}
         <div className="sensor-card sensor-card-tof">
           <div className="sensor-card-header">
             <FontAwesomeIcon icon={faRulerVertical} className="sensor-icon" />
@@ -158,17 +151,17 @@ function SensorReadings() {
             <div className="sensor-metric">
               <span className="metric-label">Distance:</span>
               <span className="metric-value">
-                {sensorData.distance?.distance_mm !== undefined 
-                  ? `${sensorData.distance.distance_mm} mm` 
-                  : "No data"}
+                {sensorData.distance?.distance_cm !== undefined 
+                  ? `${sensorData.distance.distance_cm} cm` 
+                  : "No data"}  
               </span>
             </div>
             <div className="sensor-metric">
               <span className="metric-label">Status:</span>
               <span className={`metric-status ${
-                sensorData.distance?.distance_mm < 50 ? "warning" : "normal"
+                sensorData.distance?.distance_cm < 50 ? "warning" : "normal"
               }`}>
-                {sensorData.distance?.distance_mm < 50 ? "Close" : "Normal"}
+                {sensorData.distance?.distance_cm < 50 ? "Close" : "Normal"}
               </span>
             </div>
             <div className="sensor-metric">

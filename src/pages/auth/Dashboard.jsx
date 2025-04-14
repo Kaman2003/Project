@@ -1,6 +1,6 @@
 import { useAuth } from "../../context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "../../css/dashboard.css"
+import "../../css/dashboard.css";
 import {
   faTint,
   faChartLine,
@@ -15,10 +15,9 @@ import {
   faRulerVertical,
   faWind,
   faBolt,
-  faHistory
+  faHistory,
 } from "@fortawesome/free-solid-svg-icons";
 import { ref, onValue } from "firebase/database";
-// import { database } from "../../firebase/firebase.config";
 import { database, app } from "../../firebase/config";
 import { useState, useEffect } from "react";
 
@@ -29,7 +28,7 @@ function Dashboard() {
     distance: null,
     touchSlider: null,
     loading: true,
-    error: null
+    error: null,
   });
 
   // Fetch real-time sensor data
@@ -44,11 +43,11 @@ function Dashboard() {
         if (data) {
           const entries = Object.entries(data);
           const lastEntry = entries[entries.length - 1];
-          setSensorData(prev => ({
-            ...prev,
-            airQuality: lastEntry[1],
-            loading: false
-          }));
+setSensorData(prev => ({
+  ...prev,
+  distance: lastEntry[1],
+  loading: false
+}));
         }
       });
 
@@ -57,10 +56,10 @@ function Dashboard() {
         if (data) {
           const entries = Object.entries(data);
           const lastEntry = entries[entries.length - 1];
-          setSensorData(prev => ({
+          setSensorData((prev) => ({
             ...prev,
             distance: lastEntry[1],
-            loading: false
+            loading: false,
           }));
         }
       });
@@ -70,10 +69,10 @@ function Dashboard() {
         if (data) {
           const entries = Object.entries(data);
           const lastEntry = entries[entries.length - 1];
-          setSensorData(prev => ({
+          setSensorData((prev) => ({
             ...prev,
             touchSlider: lastEntry[1],
-            loading: false
+            loading: false,
           }));
         }
       });
@@ -84,7 +83,11 @@ function Dashboard() {
         touchSliderUnsub();
       };
     } catch (error) {
-      setSensorData(prev => ({ ...prev, error: error.message, loading: false }));
+      setSensorData((prev) => ({
+        ...prev,
+        error: error.message,
+        loading: false,
+      }));
     }
   }, []);
 
@@ -94,25 +97,18 @@ function Dashboard() {
     const now = new Date();
     const sensorTime = new Date(timestamp);
     const diffInSeconds = Math.floor((now - sensorTime) / 1000);
-    
+
     if (diffInSeconds < 60) return `${diffInSeconds} sec ago`;
     if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} min ago`;
     return sensorTime.toLocaleTimeString();
   };
 
-  const getTouchStatus = (touchData) => {
-    if (!touchData) return "No contact";
-    const activePads = [touchData.pad1, touchData.pad2, touchData.pad3].filter(Boolean).length;
-    return `${activePads} pad${activePads !== 1 ? 's' : ''} active`;
-  };
-
   // System status based on sensor data
   const systemStatus = {
-    sensors: sensorData.loading ? "checking..." : 
-             sensorData.error ? "offline" : "online",
+    sensors: sensorData.loading ? "checking..." : sensorData.error ? "offline" : "online",
     database: "online",
     api: "online",
-    alerts: sensorData.airQuality?.aqi > 3 ? "1 active" : "none"
+    alerts: sensorData.airQuality?.aqi > 3 ? "1 active" : "none",
   };
 
   // Recent activity log
@@ -120,23 +116,23 @@ function Dashboard() {
     {
       time: formatTimeAgo(sensorData.airQuality?.timestamp),
       event: `Air quality update: AQI ${sensorData.airQuality?.aqi || '--'}`,
-      status: sensorData.airQuality?.aqi > 3 ? "warning" : "info"
+      status: sensorData.airQuality?.aqi > 3 ? "warning" : "info",
     },
     {
       time: formatTimeAgo(sensorData.distance?.timestamp),
-      event: `Distance measured: ${sensorData.distance?.distance_mm || '--'} mm`,
-      status: sensorData.distance?.distance_mm < 50 ? "warning" : "info"
+      event: `Distance measured: ${sensorData.distance?.distance_cm || '--'} mm`,
+      status: sensorData.distance?.distance_cm < 50 ? "warning" : "info",
     },
     {
       time: formatTimeAgo(sensorData.touchSlider?.timestamp),
-      event: `Touch sensor: ${getTouchStatus(sensorData.touchSlider)}`,
-      status: "info"
+      event: `Touch sensor: ${sensorData.touchSlider?.is_touched ? 'Touched' : 'Not Touched'}`,
+      status: "info",
     },
     {
       time: "System boot",
       event: "Dashboard initialized",
-      status: "success"
-    }
+      status: "success",
+    },
   ];
 
   return (
@@ -199,21 +195,20 @@ function Dashboard() {
             <FontAwesomeIcon icon={faRulerVertical} className="card-icon" />
             <h3>Distance</h3>
             <span className={`status-badge ${
-              sensorData.distance?.distance_mm < 50 ? 'warning' : 'normal'
+              sensorData.distance?.distance_cm < 50 ? 'warning' : 'normal'
             }`}>
-              {sensorData.distance?.distance_mm < 50 ? 'Close' : 'Normal'}
+              {sensorData.distance?.distance_cm < 50 ? 'Close' : 'Normal'}
             </span>
           </div>
           <div className="card-body">
             <div className="metric">
               <span>Current</span>
-              <strong>{sensorData.distance?.distance_mm || '--'} mm</strong>
+              <strong>{sensorData.distance?.distance_cm || '--'} mm</strong>
             </div>
             <div className="metric">
               <span>Status</span>
               <strong>
-                {sensorData.distance?.distance_mm < 50 ? 
-                 'Object detected' : 'Clear'}
+                {sensorData.distance?.distance_cm < 50 ? 'Object detected' : 'Clear'}
               </strong>
             </div>
             <div className="metric">
@@ -229,27 +224,15 @@ function Dashboard() {
             <FontAwesomeIcon icon={faWater} className="card-icon" />
             <h3>Touch Sensor</h3>
             <span className={`status-badge ${
-              sensorData.touchSlider?.pad1 || 
-              sensorData.touchSlider?.pad2 || 
-              sensorData.touchSlider?.pad3 ? 'active' : 'inactive'
+              sensorData.touchSlider?.is_touched ? 'active' : 'inactive'
             }`}>
-              {sensorData.touchSlider?.pad1 || 
-               sensorData.touchSlider?.pad2 || 
-               sensorData.touchSlider?.pad3 ? 'Active' : 'Inactive'}
+              {sensorData.touchSlider?.is_touched ? 'Touched' : 'Not Touched'}
             </span>
           </div>
           <div className="card-body">
             <div className="metric">
               <span>Status</span>
-              <strong>{getTouchStatus(sensorData.touchSlider)}</strong>
-            </div>
-            <div className="metric">
-              <span>Pads</span>
-              <strong>
-                {sensorData.touchSlider ? 
-                 `${sensorData.touchSlider.pad1 ? '1 ' : ''}${sensorData.touchSlider.pad2 ? '2 ' : ''}${sensorData.touchSlider.pad3 ? '3' : ''}` : 
-                 '-- -- --'}
-              </strong>
+              <strong>{sensorData.touchSlider?.is_touched ? 'Touched' : 'Not Touched'}</strong>
             </div>
             <div className="metric">
               <span>Updated</span>
@@ -283,9 +266,7 @@ function Dashboard() {
             </div>
             <div className="health-metric">
               <span>Alerts</span>
-              <div className={`status-indicator ${
-                systemStatus.alerts !== "none" ? 'warning' : 'ok'
-              }`}></div>
+              <div className={`status-indicator ${systemStatus.alerts !== "none" ? 'warning' : 'ok'}`}></div>
               <strong>{systemStatus.alerts}</strong>
             </div>
           </div>
