@@ -11,6 +11,7 @@ import { AuthProvider } from "./context/AuthContext";
 import AuthRoute from "./components/AuthRoute";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Careers from "./pages/public/careers";
+import Profile from "./pages/auth/Profile";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="about" element={<About />} />
             <Route path="product" element={<Product />} />
             <Route path="/careers" element={<Careers />} />
+            
 
           </Route>
 
@@ -32,6 +34,7 @@ function App() {
               <Route index element={<Dashboard />} />
               <Route path="water-quality" element={<WaterQuality />} />
               <Route path="sensor-readings" element={<SensorReadings />} />
+              <Route path="profile" element={<Profile />} />
               {/* Add more authenticated routes here */}
             </Route>
           </Route>

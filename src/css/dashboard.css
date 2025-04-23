@@ -488,6 +488,10 @@
   font-size: 0.9rem;
 }
 
+.dashboard-container {
+  overflow-x: hidden;
+}
+
 .chart-bar {
   width: 80%;
   background: #4fc3f7;
@@ -525,10 +529,26 @@
   .dashboard-container {
     padding: 1.5rem;
   }
+  .header-content h1 {
+    font-size: 1.6rem;
+  }
+
+  .section-header h2 {
+    font-size: 1.2rem;
+  }
 
   .sensor-grid {
     grid-template-columns: 1fr;
   }
+  
+  .metric strong {
+    font-size: 1.1rem;
+  }
+
+  .metric-value {
+    font-size: 1.6rem;
+  }
+
 
   .system-metrics {
     grid-template-columns: 1fr 1fr;
@@ -544,5 +564,42 @@
 
   .system-metrics {
     grid-template-columns: 1fr;
+  }
+}
+
+/* for mobile */
+@media (max-width: 1024px) {
+  .water-stats {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .water-stat {
+    width: 90%;
+    margin: 10px 0;
+  }
+
+  .chart-bars {
+    flex-wrap: wrap;
+    height: auto;
+    gap: 10px;
+  }
+
+  .chart-bar-container {
+    width: 30%;
+    margin-bottom: 15px;
+  }
+}
+
+/*for scrolls */
+@media (max-width: 480px) {
+  .log-entries {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .log-entry {
+    min-width: 280px;
+    display: inline-block;
   }
 }
