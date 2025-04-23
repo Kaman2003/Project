@@ -55,9 +55,6 @@ function Footer() {
             <li>
               <a href="/product">Product</a>
             </li>
-            <li>
-              <a href="/contact">Contact</a>
-            </li>
           </ul>
         </div>
 
@@ -85,35 +82,35 @@ function Footer() {
           <h3>Follow Us</h3>
           <div className="footer-social-icons">
             <a
-              href="https://facebook.com/h2flow"
+              href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
             >
               <FontAwesomeIcon icon={faFacebook} />
             </a>
             <a
-              href="https://twitter.com/h2flow"
+              href="https://www.x.com"
               target="_blank"
               rel="noopener noreferrer"
             >
               <FontAwesomeIcon icon={faTwitter} />
             </a>
             <a
-              href="https://instagram.com/h2flow"
+              href="https://www.instagram.com"
               target="_blank"
               rel="noopener noreferrer"
             >
               <FontAwesomeIcon icon={faInstagram} />
             </a>
             <a
-              href="https://linkedin.com/company/h2flow"
+              href="https://www.linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
             >
               <FontAwesomeIcon icon={faLinkedin} />
             </a>
             <a
-              href="https://github.com/h2flow"
+              href="https://github.com/Kaman2003/Project"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -122,22 +119,17 @@ function Footer() {
           </div>
         </div>
 
-        {/* Newsletter Subscription */}
-        <div className="footer-section footer-newsletter">
-          <h3>Subscribe to Our Newsletter</h3>
-          <form className="footer-newsletter-form">
-            <input type="email" placeholder="Enter your email" required />
-            <button type="submit">Subscribe</button>
-          </form>
-        </div>
+       
+        
       </div>
 
       {/* Footer Bottom */}
       <div className="footer-bottom">
         <p>&copy; 2025 H2Flow. All rights reserved.</p>
         <p>
-          <a href="/privacy-policy">Privacy Policy</a> |{" "}
-          <a href="/terms-of-service">Terms of Service</a>
+          <a href="https://www.privacypolicies.com/live/ac8fc286-8acb-43ed-a6d4-ebc3a041d2e4">Privacy Policy</a> |{" "}
+          <a href="https://www.termsfeed.com/live/bac88253-9aae-4b2d-9aa9-4ffca3724060">Term and Conditions</a> |{" "}
+          
         </p>
       </div>
     </footer>
