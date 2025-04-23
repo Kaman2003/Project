@@ -1,4 +1,7 @@
-const API_URL = "http://localhost:5000/api/auth"
+// const API_URL = "http://localhost:5000/api/auth"
+const API_URL = "https://projectbackend-production-5a9b.up.railway.app/api/auth";
+
+
 
 
 const fetchWithAuth = async (url, options = {}) => {

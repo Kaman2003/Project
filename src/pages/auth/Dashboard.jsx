@@ -18,11 +18,42 @@ import {
   faHistory,
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, push, set } from "firebase/database";
 import { database, app } from "../../firebase/config";
 import { useState, useEffect, useRef } from "react";
 
 function Dashboard() {
+
+  // Function to save water consumption data to Firebase
+  const saveWaterConsumption = async (amount) => {
+    try {
+      const waterRef = ref(database, 'CENG355/waterConsumption');
+      const newWaterRef = push(waterRef);
+      await set(newWaterRef, {
+        amount,
+        timestamp: new Date().toISOString()
+      });
+      console.log("Water consumption saved successfully");
+    } catch (error) {
+      console.error("Error saving water consumption:", error);
+    }
+  };
+
+  // Function to fetch water consumption history
+  const fetchWaterConsumption = () => {
+    const waterRef = ref(database, 'CENG355/waterConsumption');
+    return new Promise((resolve) => {
+      onValue(waterRef, (snapshot) => {
+        const data = snapshot.val();
+        const history = data ? Object.entries(data).map(([key, value]) => ({
+          id: key,
+          ...value
+        })) : [];
+        resolve(history);
+      });
+    });
+  };
+
   const { currentUser } = useAuth();
   const [sensorData, setSensorData] = useState({
     airQuality: null,
@@ -31,16 +62,16 @@ function Dashboard() {
     loading: true,
     error: null,
   });
-  
-  
+
+
   const [waterConsumption, setWaterConsumption] = useState({
-    dailyTotal: 0,       
-    currentSession: 0,  
+    dailyTotal: 0,
+    currentSession: 0,
     isFilling: false,
     lastFilledTime: null,
-    dailyHistory: [], 
+    dailyHistory: [],
   });
-  
+
   // Refs for tracking filling state and intervals
   const fillingInterval = useRef(null);
   const touchStartTime = useRef(null);
@@ -49,6 +80,25 @@ function Dashboard() {
 
   // Fetch real-time sensor data
   useEffect(() => {
+    const loadWaterData = async () => {
+      try {
+        const history = await fetchWaterConsumption();
+        if (history.length > 0) {
+          const dailyTotal = history.reduce((sum, entry) => sum + entry.amount, 0);
+          setWaterConsumption(prev => ({
+            ...prev,
+            dailyTotal,
+            dailyHistory: history.slice(-10).map(entry => ({
+              time: entry.timestamp,
+              amount: entry.amount
+            }))
+          }));
+        }
+      } catch (error) {
+        console.error("Error loading water data:", error);
+      }
+    };
+
     try {
       const airQualityRef = ref(database, 'CENG355/sensors/air_quality_sensor');
       const distanceRef = ref(database, 'CENG355/sensors/distance_sensor');
@@ -90,7 +140,7 @@ function Dashboard() {
             touchSlider: lastEntry[1],
             loading: false,
           }));
-          
+
           // Handle touch sensor changes for water consumption
           handleTouchSensorChange(lastEntry[1]);
         }
@@ -133,18 +183,18 @@ function Dashboard() {
   const startFilling = () => {
     touchStartTime.current = new Date();
     isFillingRef.current = true; // ✅ Keep ref in sync
-  
+
     setWaterConsumption(prev => ({
       ...prev,
       isFilling: true,
       currentSession: 0,
     }));
-  
+
     fillingInterval.current = setInterval(() => {
       const now = new Date();
       const secondsElapsed = (now - touchStartTime.current) / 1000;
       const mlFilled = Math.floor(secondsElapsed * 3);
-  
+
       setWaterConsumption(prev => ({
         ...prev,
         currentSession: mlFilled,
@@ -153,26 +203,25 @@ function Dashboard() {
   };
 
   // Stop filling water and update totals
-  const stopFilling = () => {
+  const stopFilling = async () => {
     console.log('Attempting to stop filling');
-    
+
     if (fillingInterval.current) {
       clearInterval(fillingInterval.current);
       fillingInterval.current = null;
     }
-  
-    isFillingRef.current = false; // ✅ Mark ref as not filling
-  
+
+    isFillingRef.current = false;
+
     const now = new Date();
     const fillTime = now.toISOString();
-  
+
     setWaterConsumption(prev => {
-      // Only update if we were actually filling
       if (!prev.isFilling) {
         console.log("Skip stop: isFilling was false in state");
         return prev;
       }
-  
+
       const newTotal = prev.dailyTotal + prev.currentSession;
       const newHistory = [
         ...prev.dailyHistory,
@@ -181,7 +230,12 @@ function Dashboard() {
           amount: prev.currentSession,
         }
       ].slice(-10);
-  
+
+      // Save to database
+      if (prev.currentSession > 0) {
+        saveWaterConsumption(prev.currentSession);
+      }
+
       return {
         ...prev,
         isFilling: false,
@@ -216,7 +270,7 @@ function Dashboard() {
   const calculateDailyAverage = () => {
     // In a real app, you would get this from historical data
     // For demo purposes, we'll use a fixed value or calculate from today's data
-    return waterConsumption.dailyTotal > 0 
+    return waterConsumption.dailyTotal > 0
       ? Math.round(waterConsumption.dailyTotal / 24 * 100) / 100 // Average per hour
       : 250; // Default value
   };
@@ -287,8 +341,8 @@ function Dashboard() {
             <FontAwesomeIcon icon={faWind} className="card-icon" />
             <h3>Air Quality</h3>
             <span className={`status-badge ${!sensorData.airQuality?.aqi ? 'unknown' :
-                sensorData.airQuality.aqi <= 1 ? 'excellent' :
-                  sensorData.airQuality.aqi <= 3 ? 'good' : 'poor'
+              sensorData.airQuality.aqi <= 1 ? 'excellent' :
+                sensorData.airQuality.aqi <= 3 ? 'good' : 'poor'
               }`}>
               {!sensorData.airQuality?.aqi ? '--' :
                 sensorData.airQuality.aqi <= 1 ? 'Excellent' :
@@ -357,8 +411,8 @@ function Dashboard() {
             <div className="metric">
               <span>Water Flow</span>
               <strong>
-                {waterConsumption.isFilling ? 
-                  `Dispensing: ${formatWaterAmount(waterConsumption.currentSession)}` : 
+                {waterConsumption.isFilling ?
+                  `Dispensing: ${formatWaterAmount(waterConsumption.currentSession)}` :
                   'Idle'}
               </strong>
             </div>
@@ -443,8 +497,8 @@ function Dashboard() {
               <div className="water-stat">
                 <span className="stat-label">Current Session</span>
                 <span className="stat-value">
-                  {waterConsumption.isFilling ? 
-                    `${formatWaterAmount(waterConsumption.currentSession)} (filling)` : 
+                  {waterConsumption.isFilling ?
+                    `${formatWaterAmount(waterConsumption.currentSession)} (filling)` :
                     '--'}
                 </span>
               </div>
@@ -453,7 +507,7 @@ function Dashboard() {
                 <span className="stat-value">{formatWaterAmount(calculateDailyAverage())}</span>
               </div>
             </div>
-            
+
             {/* Simple bar chart for visualization */}
             <div className="water-bar-chart">
               <div className="chart-title">Today's Consumption</div>
@@ -462,14 +516,14 @@ function Dashboard() {
                 {[0, 1, 2, 3, 4, 5].map((hour) => {
                   // In a real app, you would have hourly data
                   // For demo, we'll randomize some values based on today's total
-                  const hourValue = hour === new Date().getHours() ? 
-                    waterConsumption.currentSession : 
+                  const hourValue = hour === new Date().getHours() ?
+                    waterConsumption.currentSession :
                     Math.round(waterConsumption.dailyTotal / 6 * Math.random());
-                  
+
                   return (
                     <div key={hour} className="chart-bar-container">
-                      <div 
-                        className="chart-bar" 
+                      <div
+                        className="chart-bar"
                         style={{ height: `${Math.min(100, hourValue / 500 * 100)}%` }}
                       ></div>
                       <div className="chart-bar-label">{hour * 4}:00</div>
@@ -478,7 +532,7 @@ function Dashboard() {
                 })}
               </div>
             </div>
-            
+
             <div className="chart-legend">
               <span className="legend-item">
                 <span className="color-swatch today"></span>
