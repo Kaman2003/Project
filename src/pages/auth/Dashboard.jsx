@@ -16,10 +16,11 @@ import {
   faWind,
   faBolt,
   faHistory,
+  faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { ref, onValue } from "firebase/database";
 import { database, app } from "../../firebase/config";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function Dashboard() {
   const { currentUser } = useAuth();
@@ -30,6 +31,21 @@ function Dashboard() {
     loading: true,
     error: null,
   });
+  
+  
+  const [waterConsumption, setWaterConsumption] = useState({
+    dailyTotal: 0,       
+    currentSession: 0,  
+    isFilling: false,
+    lastFilledTime: null,
+    dailyHistory: [], 
+  });
+  
+  // Refs for tracking filling state and intervals
+  const fillingInterval = useRef(null);
+  const touchStartTime = useRef(null);
+  const isFillingRef = useRef(false); // <- Add this
+
 
   // Fetch real-time sensor data
   useEffect(() => {
@@ -41,11 +57,11 @@ function Dashboard() {
       const airQualityUnsub = onValue(airQualityRef, (snapshot) => {
         const data = snapshot.val();
         if (data) {
-         const entries = Object.entries(data);
-          const lastEntry = entries[entries.length - 1]; // If data is an array, else modify as per structure.
+          const entries = Object.entries(data);
+          const lastEntry = entries[entries.length - 1];
           setSensorData(prev => ({
             ...prev,
-            airQuality: lastEntry[1],  // Set the full airQuality object here
+            airQuality: lastEntry[1],
             loading: false,
           }));
         }
@@ -74,13 +90,21 @@ function Dashboard() {
             touchSlider: lastEntry[1],
             loading: false,
           }));
+          
+          // Handle touch sensor changes for water consumption
+          handleTouchSensorChange(lastEntry[1]);
         }
       });
+
 
       return () => {
         airQualityUnsub();
         distanceUnsub();
         touchSliderUnsub();
+        // Clean up interval on unmount
+        if (fillingInterval.current) {
+          clearInterval(fillingInterval.current);
+        }
       };
     } catch (error) {
       setSensorData((prev) => ({
@@ -90,6 +114,83 @@ function Dashboard() {
       }));
     }
   }, []);
+
+  // Handle touch sensor changes for water consumption
+  const handleTouchSensorChange = (touchData) => {
+    console.log("Touch Sensor Update:", touchData);
+    if (touchData.is_touched) {
+      if (!isFillingRef.current) {
+        startFilling();
+      }
+    } else {
+      if (isFillingRef.current) {
+        stopFilling();
+      }
+    }
+  };
+
+  // Start filling water
+  const startFilling = () => {
+    touchStartTime.current = new Date();
+    isFillingRef.current = true; // ✅ Keep ref in sync
+  
+    setWaterConsumption(prev => ({
+      ...prev,
+      isFilling: true,
+      currentSession: 0,
+    }));
+  
+    fillingInterval.current = setInterval(() => {
+      const now = new Date();
+      const secondsElapsed = (now - touchStartTime.current) / 1000;
+      const mlFilled = Math.floor(secondsElapsed * 3);
+  
+      setWaterConsumption(prev => ({
+        ...prev,
+        currentSession: mlFilled,
+      }));
+    }, 1000);
+  };
+
+  // Stop filling water and update totals
+  const stopFilling = () => {
+    console.log('Attempting to stop filling');
+    
+    if (fillingInterval.current) {
+      clearInterval(fillingInterval.current);
+      fillingInterval.current = null;
+    }
+  
+    isFillingRef.current = false; // ✅ Mark ref as not filling
+  
+    const now = new Date();
+    const fillTime = now.toISOString();
+  
+    setWaterConsumption(prev => {
+      // Only update if we were actually filling
+      if (!prev.isFilling) {
+        console.log("Skip stop: isFilling was false in state");
+        return prev;
+      }
+  
+      const newTotal = prev.dailyTotal + prev.currentSession;
+      const newHistory = [
+        ...prev.dailyHistory,
+        {
+          time: fillTime,
+          amount: prev.currentSession,
+        }
+      ].slice(-10);
+  
+      return {
+        ...prev,
+        isFilling: false,
+        dailyTotal: newTotal,
+        lastFilledTime: fillTime,
+        dailyHistory: newHistory,
+      };
+    });
+  };
 
   // Helper functions
   const formatTimeAgo = (timestamp) => {
@@ -101,6 +202,23 @@ function Dashboard() {
     if (diffInSeconds < 60) return `${diffInSeconds} sec ago`;
     if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} min ago`;
     return sensorTime.toLocaleTimeString();
+  };
+
+  // Format water amount for display
+  const formatWaterAmount = (ml) => {
+    if (ml >= 1000) {
+      return `${(ml / 1000).toFixed(1)} L`;
+    }
+    return `${ml} ml`;
+  };
+
+  // Calculate daily average (assuming we have 7 days of data for demo)
+  const calculateDailyAverage = () => {
+    // In a real app, you would get this from historical data
+    // For demo purposes, we'll use a fixed value or calculate from today's data
+    return waterConsumption.dailyTotal > 0 
+      ? Math.round(waterConsumption.dailyTotal / 24 * 100) / 100 // Average per hour
+      : 250; // Default value
   };
 
   // System status based on sensor data
@@ -128,6 +246,11 @@ function Dashboard() {
       event: `Touch sensor: ${sensorData.touchSlider?.is_touched ? 'Touched' : 'Not Touched'}`,
       status: "info",
     },
+    ...waterConsumption.dailyHistory.slice().reverse().map((entry, index) => ({
+      time: formatTimeAgo(entry.time),
+      event: `Water dispensed: ${formatWaterAmount(entry.amount)}`,
+      status: "success",
+    })).slice(0, 1), // Only show the most recent water activity
     {
       time: "System boot",
       event: "Dashboard initialized",
@@ -232,6 +355,14 @@ function Dashboard() {
               <strong>{sensorData.touchSlider?.is_touched ? 'Touched' : 'Not Touched'}</strong>
             </div>
             <div className="metric">
+              <span>Water Flow</span>
+              <strong>
+                {waterConsumption.isFilling ? 
+                  `Dispensing: ${formatWaterAmount(waterConsumption.currentSession)}` : 
+                  'Idle'}
+              </strong>
+            </div>
+            <div className="metric">
               <span>Updated</span>
               <strong>{formatTimeAgo(sensorData.touchSlider?.timestamp)}</strong>
             </div>
@@ -286,8 +417,10 @@ function Dashboard() {
                 <div className="entry-icon">
                   {activity.status === "success" ? (
                     <FontAwesomeIcon icon={faCheckCircle} />
-                  ) : (
+                  ) : activity.status === "warning" ? (
                     <FontAwesomeIcon icon={faExclamationTriangle} />
+                  ) : (
+                    <FontAwesomeIcon icon={faInfoCircle} />
                   )}
                 </div>
               </div>
@@ -301,16 +434,59 @@ function Dashboard() {
             <FontAwesomeIcon icon={faTint} />
             <h2>Water Consumption</h2>
           </div>
-          <div className="chart-placeholder">
-            <p>Daily consumption analytics will appear here</p>
+          <div className="chart-container">
+            <div className="water-stats">
+              <div className="water-stat">
+                <span className="stat-label">Today's Total</span>
+                <span className="stat-value">{formatWaterAmount(waterConsumption.dailyTotal)}</span>
+              </div>
+              <div className="water-stat">
+                <span className="stat-label">Current Session</span>
+                <span className="stat-value">
+                  {waterConsumption.isFilling ? 
+                    `${formatWaterAmount(waterConsumption.currentSession)} (filling)` : 
+                    '--'}
+                </span>
+              </div>
+              <div className="water-stat">
+                <span className="stat-label">Avg/Hour</span>
+                <span className="stat-value">{formatWaterAmount(calculateDailyAverage())}</span>
+              </div>
+            </div>
+            
+            {/* Simple bar chart for visualization */}
+            <div className="water-bar-chart">
+              <div className="chart-title">Today's Consumption</div>
+              <div className="chart-bars">
+                {/* For demo, we'll show 6 bars representing usage */}
+                {[0, 1, 2, 3, 4, 5].map((hour) => {
+                  // In a real app, you would have hourly data
+                  // For demo, we'll randomize some values based on today's total
+                  const hourValue = hour === new Date().getHours() ? 
+                    waterConsumption.currentSession : 
+                    Math.round(waterConsumption.dailyTotal / 6 * Math.random());
+                  
+                  return (
+                    <div key={hour} className="chart-bar-container">
+                      <div 
+                        className="chart-bar" 
+                        style={{ height: `${Math.min(100, hourValue / 500 * 100)}%` }}
+                      ></div>
+                      <div className="chart-bar-label">{hour * 4}:00</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            
             <div className="chart-legend">
               <span className="legend-item">
                 <span className="color-swatch today"></span>
-                Today
+                Current: {formatWaterAmount(waterConsumption.currentSession)}
               </span>
               <span className="legend-item">
                 <span className="color-swatch average"></span>
-                Daily Average
+                Today Total: {formatWaterAmount(waterConsumption.dailyTotal)}
               </span>
             </div>
           </div>

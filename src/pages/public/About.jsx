@@ -27,40 +27,36 @@ const About = () => {
           <div className="ss-about-tab-content ss-about-mission">
             <h3 className="ss-about-tab-title">Our Mission</h3>
             <p className="ss-about-tab-text">
-              At H2Flow, we're on a mission to revolutionize the way people
-              consume water. We believe that access to clean, safe drinking
-              water is a fundamental right, and we're committed to making this a
-              reality for everyone through innovative technology and sustainable
-              practices.
+              At H2Flow, we aim to redefine how water is consumed — not by changing
+              the water itself, but by changing the way it's delivered. Our mission is
+              to make hydration smarter, more efficient, and environmentally conscious.
             </p>
             <div className="ss-about-mission-goals">
               <div className="ss-about-mission-goal">
-                <FontAwesomeIcon icon={faWater} className="ss-about-icon" />
-                <h4>Clean Water for All</h4>
+                <FontAwesomeIcon icon={faTint} className="ss-about-icon" />
+                <h4>Efficient Dispensing</h4>
                 <p>
-                  Ensuring access to purified water in homes and offices
-                  worldwide.
+                  Eliminate over-pouring and reduce waste with accurate smart water flow control.
                 </p>
               </div>
               <div className="ss-about-mission-goal">
-                <FontAwesomeIcon icon={faLeaf} className="ss-about-icon" />
-                <h4>Eco-Friendly Solutions</h4>
+                <FontAwesomeIcon icon={faRecycle} className="ss-about-icon" />
+                <h4>Sustainable Use</h4>
                 <p>
-                  Reducing plastic waste and promoting sustainable water
-                  consumption.
+                  Encourage reusable containers and reduce single-use plastic habits.
                 </p>
               </div>
               <div className="ss-about-mission-goal">
-                <FontAwesomeIcon icon={faUsers} className="ss-about-icon" />
-                <h4>Community Health</h4>
+                <FontAwesomeIcon icon={faChartLine} className="ss-about-icon" />
+                <h4>Hydration Awareness</h4>
                 <p>
-                  Improving public health through better hydration and water
-                  quality.
+                  Empower users with data about their daily water intake through integrated smart app tracking.
                 </p>
               </div>
             </div>
           </div>
         );
+
       case "story":
         return (
           <div className="ss-about-tab-content ss-about-story">
@@ -68,52 +64,44 @@ const About = () => {
             <div className="ss-about-timeline">
               <div className="ss-about-timeline-item">
                 <div className="ss-about-timeline-date">Jan 2025</div>
-                <h4>The Idea is Born</h4>
+                <h4>The Idea Was Born</h4>
                 <p>
-                  Our founders, concerned about global water quality, envisioned
-                  a smart solution for water access.
-                </p>
-              </div>
-              <div className="ss-about-timeline-item">
-                <div className="ss-about-timeline-date">Jan 2025</div>
-                <h4>Research & Development</h4>
-                <p>
-                  We assembled a team of engineers and water experts to develop
-                  our revolutionary water technology.
+                  Concerned by the rising water waste across homes and institutions,
+                  our founders envisioned a smarter way to dispense water more efficiently.
                 </p>
               </div>
               <div className="ss-about-timeline-item">
                 <div className="ss-about-timeline-date">Feb 2025</div>
-                <h4>Prototype </h4>
+                <h4>Research & Development</h4>
                 <p>
-                  The first H2Flow prototype was made, in the environmentalists and tech enthusiasts.
+                  A team of developers, designers, and sustainability advocates came together to build the future of smart hydration.
                 </p>
               </div>
               <div className="ss-about-timeline-item">
                 <div className="ss-about-timeline-date">Mar 2025</div>
-                <h4>Collected the review</h4>
+                <h4>Concept to Reality</h4>
                 <p>
-                  Our team connect to the user in order to inprove the product.
+                  After multiple brainstorming sessions and early mockups, the idea of a sensor-based dispenser became our core product.
                 </p>
               </div>
               <div className="ss-about-timeline-item">
                 <div className="ss-about-timeline-date">April 2025</div>
-                <h4>H2Flow Launched.</h4>
+                <h4>Prototype Built</h4>
                 <p>
-                  We launched our device with enhanced capabilities.
+                  We developed a hardware design powered by sensors for flow, touch, and light — and brought it to life through software integration.
                 </p>
               </div>
               <div className="ss-about-timeline-item">
                 <div className="ss-about-timeline-date">Today</div>
-                <h4>Continuing Innovation</h4>
+                <h4>Ongoing Innovation</h4>
                 <p>
-                  We're constantly improving our technology and expanding our
-                  reach to make water accessible globally.
+                  H2Flow is evolving every day. We continue improving our tech, expanding access, and pushing for smarter water usage everywhere.
                 </p>
               </div>
             </div>
           </div>
         );
+
       case "technology":
         return (
           <div className="ss-about-tab-content ss-about-technology">
@@ -151,41 +139,38 @@ const About = () => {
             <h3 className="ss-about-tab-title">Our Future Impact</h3>
             <div className="ss-about-impact-stats">
               <div className="ss-about-impact-stat">
-                <span className="ss-about-impact-number">1M+</span>
-                <span className="ss-about-impact-label">Households will be Served</span>
+                <span className="ss-about-impact-number">1B+</span>
+                <span className="ss-about-impact-label">Litres Dispensed Efficiently</span>
               </div>
               <div className="ss-about-impact-stat">
-                <span className="ss-about-impact-number">500M+</span>
-                <span className="ss-about-impact-label">Gallons Purified water will be the ultimate goal.</span>
+                <span className="ss-about-impact-number">50M+</span>
+                <span className="ss-about-impact-label">Overpours Prevented</span>
               </div>
               <div className="ss-about-impact-stat">
-                <span className="ss-about-impact-number">10M+</span>
-                <span className="ss-about-impact-label">
-                  Plastic Bottles will be Saved
-                </span>
+                <span className="ss-about-impact-number">20M+</span>
+                <span className="ss-about-impact-label">Plastic Bottles Avoided</span>
               </div>
             </div>
             <div className="ss-about-impact-testimonials">
-              <h4>What Our Users Say</h4>
+              <h4>Why It Matters</h4>
               <div className="ss-about-testimonial">
                 <p>
-                  "H2Flow has transformed the way my family drinks water. We
-                  feel safer and healthier, and we're doing our part for the
-                  environment!"
+                  "Globally, over <strong>30%</strong> of dispensed water is wasted
+                  due to over-pouring and lack of measurement. H2Flow helps bring
+                  that number down — one smart sip at a time."
                 </p>
-                <span>- Sarah J., California</span>
+                <span>- Water Efficiency Report 2024</span>
               </div>
               <div className="ss-about-testimonial">
                 <p>
-                  "As a business owner, installing Smart Sip in our office has
-                  improved employee satisfaction and reduced our plastic waste
-                  significantly."
+                  "H2Flow supports sustainable hydration by encouraging smart usage and data-backed tracking — helping reduce waste at scale."
                 </p>
-                <span>- Michael T., New York</span>
+                <span>- Environmental Tech Watch</span>
               </div>
             </div>
           </div>
         );
+
       case "team":
         return (
           <div className="ss-about-tab-content ss-about-team">
@@ -193,39 +178,45 @@ const About = () => {
             <div className="ss-about-team-grid">
               <div className="ss-about-team-member">
                 <img
-                  src="john.jpg"
-                  alt="John Doe"
+                  src="kaman.png"
+                  alt="Kamandeep Image"
                   className="ss-about-team-photo"
                 />
                 <h4>Kamandeep Singh</h4>
-                <p>Co-Founder & CEO</p>
               </div>
               <div className="ss-about-team-member">
                 <img
-                  src="jane.jpg"
-                  alt="Jane Smith"
+                  src="meen.png"
+                  alt="Hyungmeen Ko"
                   className="ss-about-team-photo"
                 />
-                <h4>Nawaz Sharief</h4>
-                <p>Co-Founder & CTO</p>
+                <h4>Hyungmeen Ko</h4>
+
               </div>
               <div className="ss-about-team-member">
+                <img
+                  src="nawa.png"
+                  alt="Nawaz Sharief Kotikalapudi"
+                  className="ss-about-team-photo"
+                />
+                <h4>Nawaz Sharief Kotikalapudi</h4>
+              </div>
+              {/* <div className="ss-about-team-member">
                 <img
                   src="alex.jpg"
                   alt="Alex Johnson"
                   className="ss-about-team-photo"
                 />
-                <h4>clarence Oriola</h4>
-                <p>Head of Product Design</p>
-              </div>
+                <h4>Clarence Oriola</h4>
+              
+              </div> */}
               <div className="ss-about-team-member">
                 <img
-                  src="emily.jpg"
-                  alt="Emily Brown"
+                  src="ikeena.jpg"
+                  alt="Victor Igbojionu"
                   className="ss-about-team-photo"
                 />
-                <h4>Ikeena</h4>
-                <p>Chief Water Scientist</p>
+                <h4>Victor Igbojionu</h4>
               </div>
             </div>
             <div className="ss-about-join-team">
@@ -248,37 +239,31 @@ const About = () => {
               <h4>Vision 2030</h4>
               <p>By 2030, we aim to:</p>
               <ul>
-                <li>
-                  Provide clean water access to 100 million households globally
-                </li>
-                <li>Reduce plastic bottle usage by 1 billion annually</li>
-                <li>
-                  Develop next-gen water purification technology for extreme
-                  environments
-                </li>
+                <li>Optimize water dispensing in 100 million households globally</li>
+                <li>Prevent over 1 billion liters of water waste annually</li>
+                <li>Become the leading solution for sustainable hydration habits</li>
               </ul>
             </div>
             <div className="ss-about-future-initiatives">
               <h4>Upcoming Initiatives</h4>
               <div className="ss-about-initiative">
                 <FontAwesomeIcon icon={faGlobe} className="ss-about-icon" />
-                <h5>Global Water Quality Map</h5>
+                <h5>Hydration Analytics Dashboard</h5>
                 <p>
-                  Leveraging our network of Smart Sip devices to create a
-                  real-time global water quality monitoring system.
+                  Aggregating anonymized data from H2Flow devices to provide global insights on water consumption trends and efficiency.
                 </p>
               </div>
               <div className="ss-about-initiative">
                 <FontAwesomeIcon icon={faRocket} className="ss-about-icon" />
-                <h5>Smart Sip for Space</h5>
+                <h5>Smart Dispensing in Extreme Conditions</h5>
                 <p>
-                  Collaborating with space agencies to develop water
-                  purification systems for long-term space missions.
+                  Innovating H2Flow technology for remote, mobile, or disaster-relief scenarios where precision hydration is critical.
                 </p>
               </div>
             </div>
           </div>
         );
+
       default:
         return null;
     }
@@ -295,33 +280,29 @@ const About = () => {
 
       <nav className="ss-about-nav">
         <button
-          className={`ss-about-nav-btn ${
-            activeTab === "mission" ? "active" : ""
-          }`}
+          className={`ss-about-nav-btn ${activeTab === "mission" ? "active" : ""
+            }`}
           onClick={() => setActiveTab("mission")}
         >
           Our Mission
         </button>
         <button
-          className={`ss-about-nav-btn ${
-            activeTab === "story" ? "active" : ""
-          }`}
+          className={`ss-about-nav-btn ${activeTab === "story" ? "active" : ""
+            }`}
           onClick={() => setActiveTab("story")}
         >
           Our Story
         </button>
         <button
-          className={`ss-about-nav-btn ${
-            activeTab === "technology" ? "active" : ""
-          }`}
+          className={`ss-about-nav-btn ${activeTab === "technology" ? "active" : ""
+            }`}
           onClick={() => setActiveTab("technology")}
         >
           Our Technology
         </button>
         <button
-          className={`ss-about-nav-btn ${
-            activeTab === "impact" ? "active" : ""
-          }`}
+          className={`ss-about-nav-btn ${activeTab === "impact" ? "active" : ""
+            }`}
           onClick={() => setActiveTab("impact")}
         >
           Our Impact
@@ -333,9 +314,8 @@ const About = () => {
           Our Team
         </button>
         <button
-          className={`ss-about-nav-btn ${
-            activeTab === "future" ? "active" : ""
-          }`}
+          className={`ss-about-nav-btn ${activeTab === "future" ? "active" : ""
+            }`}
           onClick={() => setActiveTab("future")}
         >
           Our Future
@@ -347,11 +327,10 @@ const About = () => {
       <section className="ss-about-cta">
         <h2 className="ss-about-cta-title">Join the H2Flow Revolution</h2>
         <p className="ss-about-cta-text">
-          Experience the future of water purification and contribute to a
-          sustainable planet.
+          Experience the future of hydration — with smarter dispensing and less waste.
         </p>
         <div className="ss-about-cta-buttons">
-        <button
+          <button
             onClick={() => navigate('/product')}
             className="ss-about-cta-btn ss-about-cta-btn-primary"
           >

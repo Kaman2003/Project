@@ -60,7 +60,7 @@ const Home = () => {
         </div>
         <div className="home-hero-image">
           <img
-            src="hero-img.jpg"
+            src="hero.png"
             alt="H2Flow Water Dispenser"
             className="home-hero-image-dispenser"
           />
@@ -115,82 +115,78 @@ const Home = () => {
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
-      <section className="home-testimonials">
-        <div className="home-testimonials-container">
-          <h2 className="home-testimonials-title">What Our Users Say</h2>
-          <p className="home-testimonials-subtitle">
-            Hear from our community of happy users who love H2Flow.
+      {/* Why We Built H2Flow Section */}
+<section className="home-testimonials">
+  <div className="home-testimonials-container">
+    <h2 className="home-testimonials-title">Why We Built H2Flow</h2>
+    <p className="home-testimonials-subtitle">
+      Every drop counts — and we’re here to make sure none go to waste.
+    </p>
+
+    <div className="home-testimonials-grid">
+      {/* Problem Card */}
+      <div className="home-testimonial-card">
+        <div className="home-testimonial-card-content">
+          <div className="home-testimonial-card-icon">🚱</div>
+          <p className="home-testimonial-text">
+            "Every year, more than <strong>1.7 trillion gallons</strong> of clean water are wasted globally due to
+            inefficient usage, leaks, and mismanagement."
           </p>
-          <div className="home-testimonials-grid">
-            {/* Testimonial 1 */}
-            <div className="home-testimonial-card">
-              <div className="home-testimonial-card-content">
-                <div className="home-testimonial-card-icon">💧</div>
-                <p className="home-testimonial-text">
-                  "H2Flow has completely changed the way I stay hydrated.
-                  It's convenient, eco-friendly, and stylish!"
-                </p>
-                <div className="home-testimonial-author">
-                  <img
-                    src="test-1.jpg" // Replace with actual user image
-                    alt="Jane Doe"
-                    className="home-testimonial-author-image"
-                  />
-                  <p className="home-testimonial-author-name">Jane Doe</p>
-                  <p className="home-testimonial-author-role">
-                    Fitness Enthusiast
-                  </p>
-                </div>
-              </div>
-              <div className="home-testimonial-card-background"></div>
-            </div>
-
-            {/* Testimonial 2 */}
-            <div className="home-testimonial-card">
-              <div className="home-testimonial-card-content">
-                <div className="home-testimonial-card-icon">📱</div>
-                <p className="home-testimonial-text">
-                  "I love the health tracking feature. It keeps me motivated to
-                  drink more water every day."
-                </p>
-                <div className="home-testimonial-author">
-                  <img
-                    src="test-2.jpg" // Replace with actual user image
-                    alt="John Smith"
-                    className="home-testimonial-author-image"
-                  />
-                  <p className="home-testimonial-author-name">John Smith</p>
-                  <p className="home-testimonial-author-role">Tech Blogger</p>
-                </div>
-              </div>
-              <div className="home-testimonial-card-background"></div>
-            </div>
-
-            {/* Testimonial 3 */}
-            <div className="home-testimonial-card">
-              <div className="home-testimonial-card-content">
-                <div className="home-testimonial-card-icon">🌡️</div>
-                <p className="home-testimonial-text">
-                  "The smart technology is amazing. It always knows the perfect
-                  temperature for my water."
-                </p>
-                <div className="home-testimonial-author">
-                  <img
-                    src="test-3.jpg" 
-                    alt="Emily Johnson"
-                    className="home-testimonial-author-image"
-                  />
-                  <p className="home-testimonial-author-name">Emily Johnson</p>
-                  <p className="home-testimonial-author-role">Health Coach</p>
-                </div>
-              </div>
-              <div className="home-testimonial-card-background"></div>
-            </div>
+          <div className="home-testimonial-author">
+            <p className="home-testimonial-author-name">UNESCO Report</p>
+            <p className="home-testimonial-author-role">Water Facts 2023</p>
           </div>
         </div>
-      </section>
+        <div className="home-testimonial-card-background"></div>
+      </div>
 
+      {/* Solution Card */}
+      <div className="home-testimonial-card">
+        <div className="home-testimonial-card-content">
+          <div className="home-testimonial-card-icon">💡</div>
+          <p className="home-testimonial-text">
+            "H2Flow is designed to make hydration smarter. It eliminates overuse, prevents waste, and tracks your consumption — saving water and lives."
+          </p>
+          <div className="home-testimonial-author">
+            <p className="home-testimonial-author-name">Kamandeep Singh</p>
+            <p className="home-testimonial-author-role">Founder of H2Flow</p>
+          </div>
+        </div>
+        <div className="home-testimonial-card-background"></div>
+      </div>
+
+      {/* Vision Card */}
+      <div className="home-testimonial-card">
+        <div className="home-testimonial-card-content">
+          <div className="home-testimonial-card-icon">🌎</div>
+          <p className="home-testimonial-text">
+            "By 2030, the world could face a 40% water supply shortfall. Our mission is to empower people to track, conserve, and care — starting with one smart sip at a time."
+          </p>
+          <div className="home-testimonial-author">
+            <p className="home-testimonial-author-name">World Economic Forum</p>
+            <p className="home-testimonial-author-role">Water Security Outlook</p>
+          </div>
+        </div>
+        <div className="home-testimonial-card-background"></div>
+      </div>
+    </div>
+
+    {/* CTA */}
+    <div style={{ marginTop: "2rem" }}>
+      <button
+        className="home-cta-button"
+        onClick={() =>
+          navigate('/', {
+            state: { showAuthModal: true, initialTab: 'register' },
+          })
+        }
+      >
+        <span className="home-cta-button-icon">🌊</span>
+        Join the Movement — Start Saving Water
+      </button>
+    </div>
+  </div>
+</section>
       {/* How It Works Section */}
       <section className="home-how-it-works">
         <div className="home-how-it-works-container">
@@ -265,10 +261,11 @@ const Home = () => {
             <span className="home-cta-button-icon">🚀</span>
             Register with us now
           </button>
+       
           <div className="home-cta-stats">
             <div className="home-cta-stat">
-              <span className="home-cta-stat-number">10,000+</span>
-              <span className="home-cta-stat-label">Happy Users</span>
+              {/* <span className="home-cta-stat-number">10,000+</span> */}
+              <span className="home-cta-stat-promise">What we promise!</span>
             </div>
             <div className="home-cta-stat">
               <span className="home-cta-stat-number">99%</span>

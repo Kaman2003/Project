@@ -577,11 +577,14 @@
   border-radius: 10px;
 }
 
-.home-cta-stat-number {
-  font-size: 1.5rem;
+
+.home-cta-stat-promise {
+  font-size: 2rem;
   font-weight: 600;
-  color: hsl(var(--secondary));
+  color: hsl(var(--primary));
 }
+
+
 
 .home-cta-stat-label {
   font-size: 1rem;
