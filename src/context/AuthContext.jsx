@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { app } from "../firebase/config";
-import { getAuth, signInWithCustomToken } from "firebase/auth";
+import { getAuth, signInWithCustomToken, setPersistence, signOut, onAuthStateChanged,browserLocalPersistence } from "firebase/auth";
 import { register, login, getCurrentUser } from "../api";
+
 
 const AuthContext = createContext();
 
@@ -54,7 +55,7 @@ export function AuthProvider({ children }) {
 
   const logout = async () => {
     try {
-      await auth.signOut();
+      await signOut(auth);
       setCurrentUser(null);
     } catch (error) {
       console.error("Logout error:", error);
@@ -63,27 +64,36 @@ export function AuthProvider({ children }) {
   };
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        try {
-          // Get fresh token
-          const token = await user.getIdToken();
-          // Fetch additional user data
-          const userData = await getCurrentUser(token);
-          setCurrentUser({
-            ...user,
-            name: userData.name,
-          });
-        } catch (error) {
-          console.error("Auth state error:", error);
-        }
-      } else {
-        setCurrentUser(null);
-      }
-      setLoading(false);
-    });
+    // Ensure session is persistent across reloads
+    setPersistence(auth, browserLocalPersistence)
+      .then(() => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+          if (user) {
+            try {
+              const token = await user.getIdToken();
+              const userData = await getCurrentUser(token);
 
-    return unsubscribe;
+              setCurrentUser({
+                ...user,
+                name: userData.name,
+              });
+            } catch (error) {
+              console.error("Auth state fetch error:", error);
+              setCurrentUser(null);
+            }
+          } else {
+            setCurrentUser(null);
+          }
+
+          setLoading(false);
+        });
+
+        return () => unsubscribe();
+      })
+      .catch((err) => {
+        console.error("Auth persistence error:", err);
+        setLoading(false);
+      });
   }, []);
 
   const value = {

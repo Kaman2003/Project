@@ -1,14 +1,8 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-function AuthRoute() {
+export function AuthRoute() {
   const { currentUser } = useAuth();
-
-  if (!currentUser) {
-    return <Navigate to="/" replace />;
-  }
-
-  return <Outlet />;
+  return currentUser ? <Navigate to="/app" replace /> : <Outlet />;
 }
-
 export default AuthRoute;
