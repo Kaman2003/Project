@@ -11,7 +11,7 @@ import SensorReadings from "./pages/auth/SensorReadings";
 import { AuthProvider } from "./context/AuthContext";
 import AuthRoute from "./components/AuthRoute";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Careers from "./pages/public/careers";
+import Carrers from "./pages/public/careers";
 import Profile from "./pages/auth/Profile";
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
               <Route index element={<Home />} />
               <Route path="about" element={<About />} />
               <Route path="product" element={<Product />} />
-              <Route path="/careers" element={<Careers />} />
+              <Route path="careers" element={<Careers />} />
             </Route>
           </Route>
 
